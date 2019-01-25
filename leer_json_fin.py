@@ -44,7 +44,7 @@ def califica_tweets(pbuscar,parchivo_tw,parchivo_mt):
 		elif re.findall(encontrar,test):
 		    contarSi=contarSi+1
 		    #lee liea a linea el archivo de tweets
-		    data=json.read(test)
+		    data=json.loads(test)
 		    #separa en un diccionario los valores
 		    if encontrar in data.keys():
 		    	#almacenar los valores
@@ -53,19 +53,11 @@ def califica_tweets(pbuscar,parchivo_tw,parchivo_mt):
 		    	for palabras in mtweets:
 		    		#setear calificacion en 0 ya que vamos a recorrer el archivo y puede quedar pegado la calificacion, lo que genera un error
 		    		califica=0
-		    		cal2=0
 		    		#recorrer la estructura para sacar palabra por palabra y buscarla en el archivo por parametro.
 		    		for i in palabras:
-		    			imprimir=i
-		    			calificacion = busca_palabras(i,parchivo_mt)
-		    			if calificacion !=0:
-		    				print(imprimir+ ": "+ str("No mostramos esta palabra, dado que tiene un sentimiento ya asociado anteriormente."))
-		    			else:
-		    				print(imprimir+ ": 3")
+		    			califica=califica+busca_palabras(i,parchivo_mt)
 
-
-		mtweets.clear()
-		    	#print("EL TWEET: ", palabras, "TIENE UN SENTIMIENTO ASOCIADO DE ----->", califica, "\n")
+		    	print("EL TWEET: ", palabras, "TIENE UN SENTIMIENTO ASOCIADO DE ----->", califica, "\n")
 	return contarTotal, contarSi, contarNo
 
 if __name__ == "__main__":
